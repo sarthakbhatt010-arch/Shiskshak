@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shikshak | Smart Adaptive Learning</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="navbar">
+
+        <div class="logo">Shikshak</div>
+
+        <nav>
+            <button onclick="showPage('home')">Home</button>
+            <button onclick="showPage('quiz')">Smart Quiz</button>
+            <button onclick="showPage('question-bank')">Question Bank</button>
+            <button onclick="showPage('roadmap')">Roadmap</button>
+            <button onclick="showPage('planner')">Study Planner</button>
+            <button onclick="showPage('dashboard')">Dashboard</button>
+            <button onclick="showPage('achievements')">Achievements</button>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- HOME PAGE -->
+
+        <section id="home" class="page active">
+
+            <div class="home-banner-wrap" aria-label="Shikshak banner image">
+                <img
+                    class="home-banner-image"
+                    src="Shikshak_ Learn, Practise, Grow.png"
+                    alt="Shikshak Learn, Practise, Grow banner"
+                >
+            </div>
+
+            <div class="hero">
+
+                <h1>Welcome to Shikshak</h1>
+
+                <h2>Learn Smarter, Achieve More</h2>
+
+                <p>
+                    An intelligent learning platform that adapts
+                    to your performance and helps you improve.
+                </p>
+
+                <button class="primary-btn" onclick="showPage('quiz')">
+                    Start Learning
+                </button>
+
+            </div>
+
+            <div class="features">
+
+                <div class="card">
+                    <h3>Adaptive Learning</h3>
+                    <p>Questions adjust according to your performance.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Performance Analytics</h3>
+                    <p>Analyze your strengths and weaknesses.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Smart Study Planner</h3>
+                    <p>Generate personalized study schedules.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Achievements</h3>
+                    <p>Earn points and badges while learning.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUIZ PAGE -->
+
+        <section id="quiz" class="page">
+
+            <h1>Adaptive Quiz</h1>
+
+            <div class="quiz-container">
+
+                <div id="quiz-start">
+
+                    <h2>Select Your Subject</h2>
+
+                    <select id="subject-select">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="javascript">JavaScript</option>
+                    </select>
+
+                    <button class="primary-btn" onclick="startQuiz()">
+                        Start Quiz
+                    </button>
+
+                </div>
+
+
+                <div id="quiz-area" class="hidden">
+
+                    <div class="quiz-header">
+
+                        <span id="question-number"></span>
+
+                        <span id="difficulty-level"></span>
+
+                        <span id="quiz-score"></span>
+
+                    </div>
+
+                    <div class="progress-bar">
+                        <div id="quiz-progress"></div>
+                    </div>
+
+                    <h2 id="question-text"></h2>
+
+                    <div id="options-container"></div>
+
+                    <p id="answer-feedback"></p>
+
+                    <button
+                        id="next-btn"
+                        class="primary-btn hidden"
+                        onclick="nextQuestion()"
+                    >
+                        Next Question
+                    </button>
+
+                </div>
+
+
+                <div id="quiz-result" class="hidden">
+
+                    <h2>Quiz Completed!</h2>
+
+                    <h1 id="final-score"></h1>
+
+                    <p id="result-message"></p>
+
+                    <button class="primary-btn" onclick="showPage('dashboard')">
+                        View Dashboard
+                    </button>
+
+                    <button onclick="showPage('roadmap')">
+                        View Learning Roadmap
+                    </button>
+
+                    <button onclick="restartQuiz()">
+                        Try Again
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- QUESTION BANK PAGE -->
+
+        <section id="question-bank" class="page">
+
+            <h1>Question Bank</h1>
+            <p class="question-bank-intro">
+                Browse practice questions by subject. Try answering each one before revealing the answer.
+            </p>
+
+            <div class="question-bank-controls">
+                <label for="question-bank-subject">Choose a subject</label>
+                <select id="question-bank-subject" onchange="renderQuestionBank()">
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="javascript">JavaScript</option>
+                </select>
+            </div>
+
+            <div id="question-bank-list" class="question-bank-list" aria-live="polite"></div>
+
+            <section class="learn-more-section" aria-labelledby="learn-more-heading">
+                <h2 id="learn-more-heading">Learn More</h2>
+                <p>Explore these GeeksforGeeks tutorials for additional learning:</p>
+                <ul class="learn-more-links">
+                    <li><a href="https://www.geeksforgeeks.org/html/html-tutorial/" target="_blank" rel="noopener noreferrer">Learn HTML on GeeksforGeeks</a></li>
+                    <li><a href="https://www.geeksforgeeks.org/css/css-tutorial/" target="_blank" rel="noopener noreferrer">Learn CSS on GeeksforGeeks</a></li>
+                    <li><a href="https://www.geeksforgeeks.org/javascript/javascript/" target="_blank" rel="noopener noreferrer">Learn JavaScript on GeeksforGeeks</a></li>
+                </ul>
+            </section>
+
+        </section>
+
+
+        <!-- ROADMAP PAGE -->
+
+        <section id="roadmap" class="page">
+
+            <h1>Personalized Learning Roadmap</h1>
+
+            <p>
+                Your learning recommendations are generated
+                from your quiz performance.
+            </p>
+
+            <div id="roadmap-container"></div>
+
+        </section>
+
+
+        <!-- STUDY PLANNER PAGE -->
+
+        <section id="planner" class="page">
+
+            <h1>Smart Study Planner</h1>
+
+            <div class="form-card">
+
+                <label for="study-subject">Select Subject</label>
+
+                <select id="study-subject">
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="JavaScript">JavaScript</option>
+                </select>
+
+                <label for="study-days-left">Days left for examination</label>
+
+                <input
+                    type="number"
+                    id="study-days-left"
+                    min="1"
+                    max="365"
+                    value="30"
+                    required
+                >
+
+                <label for="study-hours">Hours you can study per day</label>
+
+                <input
+                    type="number"
+                    id="study-hours"
+                    min="1"
+                    max="12"
+                    value="2"
+                    required
+                >
+
+                <button class="primary-btn" onclick="generateStudyPlan()">
+                    Generate Study Plan
+                </button>
+
+            </div>
+
+            <div id="study-plan-result" aria-live="polite"></div>
+
+            <section class="saved-plans-section" aria-labelledby="saved-plans-heading">
+                <h2 id="saved-plans-heading">Saved study plans</h2>
+                <p>Plans and completion progress are saved on this device.</p>
+                <div id="saved-study-plans" aria-live="polite"></div>
+            </section>
+
+        </section>
+
+
+        <!-- DASHBOARD PAGE -->
+
+        <section id="dashboard" class="page">
+
+            <h1>Performance Dashboard</h1>
+
+            <div class="dashboard-grid">
+
+                <div class="stat-card">
+                    <h3>Total Quizzes</h3>
+                    <h2 id="total-quizzes">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Average Accuracy</h3>
+                    <h2 id="average-score">0%</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total Points</h3>
+                    <h2 id="total-points">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Learning Level</h3>
+                    <h2 id="learning-level">Beginner</h2>
+                </div>
+
+            </div>
+
+            <h2>Subject Performance</h2>
+
+            <div id="subject-performance"></div>
+
+            <h2>Learning Recommendations</h2>
+
+            <div id="dashboard-recommendations"></div>
+
+        </section>
+
+
+        <!-- ACHIEVEMENTS PAGE -->
+
+        <section id="achievements" class="page">
+
+            <h1>Your Achievements</h1>
+
+            <div class="achievement-summary">
+
+                <h2>Total Points: <span id="achievement-points">0</span></h2>
+
+                <h3>Your Level: <span id="achievement-level">Beginner</span></h3>
+
+            </div>
+
+            <div id="badges-container" class="features"></div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>Made by Mr. Sarthak Bhatt, Mr. Sarthak Papnai, and Mr. Himanshu Bahukhandi</p>
+        <p>Submitted to Mr. Divyanshu Semwal</p>
+        <a class="primary-btn team-link" href="team.html">Meet the Team</a>
+    </footer>
+
+
+    <!-- JAVASCRIPT FILES -->
+
+    <script src="final.js"></script>
+    <script src="main.js"></script>
+    <script src="questions.js"></script>
+    <script src="quiz.js"></script>
+    <script src="planner.js"></script>
+    <script src="question-bank.js"></script>
+    <script src="win.js"></script>
+
+</body>
+</html>
